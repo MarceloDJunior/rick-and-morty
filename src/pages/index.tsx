@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 
-import { Home } from '@/views/home';
+import { Characters } from '@/views/characters';
 
 const HomePage: NextPage = () => {
-  return <Home />;
+  return <Characters />;
 };
 
 export default HomePage;

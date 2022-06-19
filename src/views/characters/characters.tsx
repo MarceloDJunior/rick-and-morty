@@ -5,9 +5,9 @@ import { CharactersService } from '@/services/characters';
 import { Character } from '@/models/character';
 
 import { CharacterItem } from './components/character-item';
-import styles from './home.module.scss';
+import styles from './characters.module.scss';
 
-export const Home = () => {
+export const Characters = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
 
   useEffect(() => {
