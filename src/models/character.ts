@@ -1,3 +1,5 @@
+import { Location } from '@/models/location';
+
 export type Character = {
   id: number;
   name: string;
