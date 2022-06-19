@@ -1,0 +1,7 @@
+@import '@/styles/dimensions.scss';
+
+.container {
+  margin: 0 auto;
+  width: $container-width;
+  padding: $container-padding;
+}

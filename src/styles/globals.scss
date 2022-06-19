@@ -1,0 +1,34 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 62.5%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  font-size: 1.6rem;
+  box-sizing: border-box;
+  transition: background-color 0.3s linear, color 0.1s linear;
+}
+
+.theme {
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  &--dark {
+    background-color: #0f2027;
+    /* fallback for old browsers */
+    background-color: -webkit-linear-gradient(right, #2c5364, #203a43, #0f2027);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background-color: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+  }
+}
