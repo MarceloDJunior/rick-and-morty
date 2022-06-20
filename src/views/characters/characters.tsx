@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import Logo from '@/assets/logo.svg';
-import { CharactersService } from '@/services/characters';
+import { CharactersService, GetCharactersResponse } from '@/services/characters';
 import { Character } from '@/models/character';
 import { Button } from '@/components/button';
+import { SearchInput } from '@/components/search-input';
 
 import { CharacterItem } from './components/character-item';
 import styles from './characters.module.scss';
@@ -19,34 +20,82 @@ export const Characters = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [hasMore, setHasMore] = useState(true);
+
+  const handleGetCharactersSuccess = useCallback(
+    (response: GetCharactersResponse) => {
+      const { info, results } = response;
+      setHasMore(!!info.next);
+      if (page === 1) {
+        setCharacters(results);
+      } else {
+        setCharacters(prevCharacters => [...prevCharacters, ...results]);
+      }
+      setPage(page + 1);
+    },
+    [page]
+  );
 
   const loadCharacters = useCallback(
-    async (page?: number) => {
+    async (page = 1) => {
       try {
         if (isLoading) {
           return;
         }
         setIsLoading(true);
-        const { results } = await CharactersService.getCharacters(page);
-        setCharacters(prevCharacters => [...prevCharacters, ...results]);
-        setPage(prevPage => prevPage + 1);
+        const response = await CharactersService.getCharacters(page);
+        handleGetCharactersSuccess(response);
       } catch (error) {
       } finally {
         setIsLoading(false);
       }
     },
-    [isLoading]
+    [handleGetCharactersSuccess, isLoading]
+  );
+
+  const searchCharacters = useCallback(
+    async (value: string, page = 1) => {
+      try {
+        if (isLoading) {
+          return;
+        }
+        setIsLoading(true);
+        const response = await CharactersService.getCharactersByName(value, page);
+        handleGetCharactersSuccess(response);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [handleGetCharactersSuccess, isLoading]
   );
 
   const loadMoreCharacters = useCallback(async () => {
-    await loadCharacters(page);
+    if (searchValue) {
+      await searchCharacters(searchValue, page);
+    } else {
+      await loadCharacters(page);
+    }
     setTimeout(scrollToBottom, 300);
-  }, [loadCharacters, page]);
+  }, [loadCharacters, page, searchCharacters, searchValue]);
+
+  const handleSearch = useCallback(
+    async (value: string) => {
+      setPage(1);
+      setSearchValue(value);
+    },
+    [setSearchValue]
+  );
 
   useEffect(() => {
-    loadCharacters();
+    if (searchValue) {
+      searchCharacters(searchValue);
+    } else {
+      loadCharacters();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchValue]);
 
   return (
     <>
@@ -55,6 +104,7 @@ export const Characters = () => {
           <div className={styles.logo}>
             <Logo />
           </div>
+          <SearchInput onSearch={handleSearch} />
         </div>
       </header>
       <main className={styles.container}>
@@ -63,9 +113,11 @@ export const Characters = () => {
             <CharacterItem key={character.id} character={character} className={styles.character} />
           ))}
         </div>
-        <Button onClick={loadMoreCharacters} disabled={isLoading} loading={isLoading}>
-          Load more
-        </Button>
+        {hasMore && (
+          <Button onClick={loadMoreCharacters} disabled={isLoading} loading={isLoading}>
+            Load more
+          </Button>
+        )}
       </main>
     </>
   );

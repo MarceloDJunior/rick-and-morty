@@ -79,6 +79,12 @@
     }
 
     .info {
+      display: none;
+
+      @include sm {
+        display: block;
+      }
+
       margin-top: 0.8rem;
 
       @include lg {
