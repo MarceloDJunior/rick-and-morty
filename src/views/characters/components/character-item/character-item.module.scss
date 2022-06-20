@@ -4,10 +4,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   background-color: rgba(255, 255, 255, 0.2);
   overflow: hidden;
   max-width: 35rem;
+  border: 2px solid #b2d143;
 
   @include lg {
     flex-direction: row;
@@ -41,8 +42,8 @@
       margin: 0 0 1rem;
 
       @include lg {
-        font-size: 3.2rem;
-        margin: 0 0 1.4rem;
+        font-size: 2.8rem;
+        margin: 0 0 1.2rem;
       }
     }
 
@@ -77,12 +78,11 @@
       }
     }
 
-
     .info {
       margin-top: 0.8rem;
 
       @include lg {
-        margin-top: 2rem;
+        margin-top: 1.2rem;
       }
 
       .label {
@@ -91,7 +91,7 @@
         line-height: 1.5;
 
         @include lg {
-          font-size: 1.8rem;
+          font-size: 1.6rem;
         }
       }
 
@@ -101,7 +101,7 @@
         line-height: 1.5;
 
         @include lg {
-          font-size: 2rem;
+          font-size: 1.8rem;
         }
       }
     }

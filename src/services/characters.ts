@@ -12,8 +12,8 @@ type GetCharactersResponse = {
 };
 
 export class CharactersService {
-  public static async getCharacters(): Promise<GetCharactersResponse> {
-    const response = await api.get('/character/');
+  public static async getCharacters(page = 1): Promise<GetCharactersResponse> {
+    const response = await api.get(`/character/?page=${page}`);
     return response.data as GetCharactersResponse;
   }
 }

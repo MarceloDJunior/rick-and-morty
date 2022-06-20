@@ -1,0 +1,29 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  outline: none;
+  border: 2px solid #93ad36;
+  height: 5.6rem;
+  min-width: 20rem;
+  background-color: transparent;
+  cursor: pointer;
+  color: #fff;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: #93ad36;
+    color: #fff;
+    border-color: #93ad36;
+  }
+}

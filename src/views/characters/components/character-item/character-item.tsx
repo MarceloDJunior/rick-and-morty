@@ -22,11 +22,7 @@ export const CharacterItem = ({ character, className }: CharacterItemProps) => {
               styles[`status__icon--${character.status.toLocaleLowerCase()}`]
             )}
           />
-          <span>{character.status}</span>
-        </div>
-        <div className={styles.info}>
-          <div className={styles.label}>Species</div>
-          <div className={styles.value}>{character.species}</div>
+          <span>{character.status} - {character.species}</span>
         </div>
         <div className={styles.info}>
           <div className={styles.label}>Gender</div>
