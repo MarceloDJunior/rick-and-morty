@@ -19,12 +19,14 @@ export const CharacterItem = ({ character, className }: CharacterItemProps) => {
           <div
             className={classNames(
               styles.status__icon,
-              styles[`status__icon--${character.status === 'Alive' ? 'alive' : 'dead'}`]
+              styles[`status__icon--${character.status.toLocaleLowerCase()}`]
             )}
           />
-          <span>
-            {character.status} - {character.species}
-          </span>
+          <span>{character.status}</span>
+        </div>
+        <div className={styles.info}>
+          <div className={styles.label}>Species</div>
+          <div className={styles.value}>{character.species}</div>
         </div>
         <div className={styles.info}>
           <div className={styles.label}>Gender</div>
