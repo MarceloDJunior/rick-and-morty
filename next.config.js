@@ -4,11 +4,6 @@
 /** @type {import('next').NextConfig} */
 const withReactSvg = require('next-react-svg');
 
-const nextConfig = {
-  reactStrictMode: true,
-};
-
 module.exports = withReactSvg({
-  ...nextConfig,
   include: /\.svg$/,
 });
