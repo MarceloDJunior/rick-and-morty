@@ -17,7 +17,7 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     padding: $container-padding;
-   
+
     @include md {
       padding-bottom: 8rem;
     }
@@ -49,10 +49,6 @@
     grid-gap: 2.4rem;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    .character {
-      margin: 0 auto;
-    }
-
     @include md {
       grid-template-columns: repeat(3, minmax(200px, 1fr));
     }
@@ -63,6 +59,15 @@
 
     @include xl {
       grid-template-columns: repeat(3, minmax(200px, 1fr));
+    }
+
+    .character-container {
+      display: flex;
+
+      .character {
+        flex: 1;
+        margin: 0 auto;
+      }
     }
   }
 }

@@ -1,0 +1,21 @@
+.animated {
+  opacity: 0;
+  animation-name: scale;
+  animation-duration: 300ms;
+  animation-delay: 0ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

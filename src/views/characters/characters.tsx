@@ -4,20 +4,18 @@ import Logo from '@/assets/logo.svg';
 import { CharactersService, GetCharactersResponse } from '@/services/characters';
 import { Character } from '@/models/character';
 import { Button } from '@/components/button';
+import { AnimatedScale } from '@/components/animated-scale';
 import { SearchInput } from '@/components/search-input';
 
 import { CharacterItem } from './components/character-item';
 import styles from './characters.module.scss';
 
-const scrollToBottom = () => {
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth',
-  });
+type AnimatedCharacter = Character & {
+  delay: number;
 };
 
 export const Characters = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const [characters, setCharacters] = useState<AnimatedCharacter[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -26,11 +24,15 @@ export const Characters = () => {
   const handleGetCharactersSuccess = useCallback(
     (response: GetCharactersResponse) => {
       const { info, results } = response;
+      const charactersWithDelay = results.map((character, index) => ({
+        ...character,
+        delay: index * 100,
+      }));
       setHasMore(!!info.next);
       if (page === 1) {
-        setCharacters(results);
+        setCharacters(charactersWithDelay);
       } else {
-        setCharacters(prevCharacters => [...prevCharacters, ...results]);
+        setCharacters(prevCharacters => [...prevCharacters, ...charactersWithDelay]);
       }
       setPage(page + 1);
     },
@@ -77,7 +79,6 @@ export const Characters = () => {
     } else {
       await loadCharacters(page);
     }
-    setTimeout(scrollToBottom, 300);
   }, [loadCharacters, page, searchCharacters, searchValue]);
 
   const handleSearch = useCallback(
@@ -110,7 +111,14 @@ export const Characters = () => {
       <main className={styles.container}>
         <div className={styles.characters}>
           {characters.map(character => (
-            <CharacterItem key={character.id} character={character} className={styles.character} />
+            <AnimatedScale
+              key={character.id}
+              delay={character.delay}
+              duration={600}
+              className={styles['character-container']}
+            >
+              <CharacterItem character={character} className={styles.character} />
+            </AnimatedScale>
           ))}
         </div>
         {hasMore && (
