@@ -1,0 +1,51 @@
+.switcher {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3.8rem;
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  color: #000;
+  padding: 0 1.6rem;
+  border-radius: 2rem;
+}
+
+.theme {
+  text-transform: capitalize;
+  margin-right: 1rem;
+}
+
+.color {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid #000;
+}
+
+.theme-popup {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  color: #000;
+  border-radius: 2rem;
+  display: block;
+  padding: 0.8rem 2.4rem;
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.6rem;
+    width: 100%;
+    background-color: transparent;
+
+    &.active {
+      font-weight: bold;
+    }
+  }
+}

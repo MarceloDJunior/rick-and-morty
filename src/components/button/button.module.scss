@@ -1,3 +1,5 @@
+@import '@/styles/themify.scss';
+
 .button {
   display: flex;
   align-items: center;
@@ -6,7 +8,6 @@
   font-weight: bold;
   text-transform: uppercase;
   outline: none;
-  border: 2px solid #93ad36;
   height: 5.6rem;
   min-width: 20rem;
   background-color: transparent;
@@ -15,6 +16,12 @@
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease-in-out;
 
+  @include withThemes {
+    background-color: themed('buttonBackgroundColor');
+    color: themed('buttonTextColor');
+    border: 2px solid themed('buttonBorderColor');
+  }
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -22,8 +29,10 @@
 
   &:hover,
   &:focus {
-    background-color: #93ad36;
-    color: #fff;
-    border-color: #93ad36;
+    @include withThemes {
+      background-color: themed('buttonActiveBackgroundColor');
+      color: themed('buttonActiveTextColor');
+      border-color: themed('buttonActiveBorderColor');;
+    }
   }
 }

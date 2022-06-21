@@ -6,6 +6,7 @@ import { Character } from '@/models/character';
 import { Button } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
 import { SearchInput } from '@/components/search-input';
+import { ThemeSwitcher } from '@/components/theme-switcher';
 
 import { CharacterItem } from './components/character-item';
 import styles from './characters.module.scss';
@@ -127,6 +128,7 @@ export const Characters = () => {
           </Button>
         )}
       </main>
+      <ThemeSwitcher />
     </>
   );
 };

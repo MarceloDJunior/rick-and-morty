@@ -1,12 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-const THEME_KEY = 'theme';
+import { Theme } from '@/models/theme';
 
-type Theme = 'light' | 'dark';
+const THEME_KEY = 'theme';
 
 type ThemeContextType = {
   theme: Theme;
-  toggleTheme: () => void;
+  changeTheme: (theme: Theme) => void;
 };
 
 type ThemeProviderProps = {
@@ -14,8 +14,8 @@ type ThemeProviderProps = {
 };
 
 const initialState: ThemeContextType = {
-  theme: 'light',
-  toggleTheme: () => {},
+  theme: Theme.DEFAULT,
+  changeTheme: () => {},
 };
 
 const ThemeContext = createContext(initialState);
@@ -23,7 +23,7 @@ const ThemeContext = createContext(initialState);
 export const useThemeContext = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>(Theme.DEFAULT);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem(THEME_KEY);
@@ -32,14 +32,13 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     }
   }, [theme]);
 
-  const toggleTheme = useCallback(() => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem(THEME_KEY, newTheme);
-  }, [theme]);
+  const changeTheme = useCallback((theme: Theme) => {
+    setTheme(theme);
+    localStorage.setItem(THEME_KEY, theme);
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, changeTheme }}>
       <div className={`theme theme--${theme}`}>{children}</div>
     </ThemeContext.Provider>
   );
