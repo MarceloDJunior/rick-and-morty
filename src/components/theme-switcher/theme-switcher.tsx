@@ -27,7 +27,7 @@ export const ThemeSwitcher = () => {
   );
 
   return (
-    <>
+    <div className={styles.container}>
       <button type="button" className={styles.switcher} onClick={() => setIsOpen(true)}>
         <div className={styles.theme}>{theme}</div>
         <div className={styles.color} style={{ backgroundColor: ThemePrimaryColor[theme] }}></div>
@@ -48,6 +48,6 @@ export const ThemeSwitcher = () => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };

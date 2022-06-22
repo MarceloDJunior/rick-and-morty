@@ -4,7 +4,6 @@ import { CharactersService, GetCharactersResponse } from '@/services/characters'
 import { Character } from '@/models/character';
 import { Button } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
-import { ThemeSwitcher } from '@/components/theme-switcher';
 
 import { CharacterItem } from './components/character-item';
 import { Header } from './components/header';
@@ -120,7 +119,6 @@ export const Characters = () => {
           </Button>
         )}
       </main>
-      <ThemeSwitcher />
     </>
   );
 };
