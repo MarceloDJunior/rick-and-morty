@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import Logo from '@/assets/logo.svg';
 import { CharactersService, GetCharactersResponse } from '@/services/characters';
 import { Character } from '@/models/character';
 import { Button } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
-import { SearchInput } from '@/components/search-input';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 
 import { CharacterItem } from './components/character-item';
+import { Header } from './components/header';
 import styles from './characters.module.scss';
 
 type AnimatedCharacter = Character & {
@@ -101,14 +100,7 @@ export const Characters = () => {
 
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.header__content}>
-          <div className={styles.logo}>
-            <Logo />
-          </div>
-          <SearchInput onSearch={handleSearch} />
-        </div>
-      </header>
+      <Header onSearch={handleSearch} />
       <main className={styles.container}>
         <div className={styles.characters}>
           {characters.map(character => (
