@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import classNames from 'classnames';
 
 import { Character } from '@/models/character';
@@ -9,7 +10,7 @@ type CharacterItemProps = {
   character: Character;
 };
 
-export const CharacterItem = ({ character, className }: CharacterItemProps) => {
+const CharacterItemComponent = ({ character, className }: CharacterItemProps) => {
   return (
     <div className={classNames(styles.character, className)}>
       <img src={character.image} alt={character.name} className={styles.image} />
@@ -22,7 +23,9 @@ export const CharacterItem = ({ character, className }: CharacterItemProps) => {
               styles[`status__icon--${character.status.toLocaleLowerCase()}`]
             )}
           />
-          <span>{character.status} - {character.species}</span>
+          <span>
+            {character.status} - {character.species}
+          </span>
         </div>
         <div className={styles.info}>
           <div className={styles.label}>Gender</div>
@@ -36,3 +39,5 @@ export const CharacterItem = ({ character, className }: CharacterItemProps) => {
     </div>
   );
 };
+
+export const CharacterItem = memo(CharacterItemComponent);
