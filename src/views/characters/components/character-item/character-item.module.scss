@@ -8,12 +8,11 @@
   border-radius: 0.8rem;
   overflow: hidden;
   max-width: 35rem;
-  border: 2px solid #b2d143;
-  backdrop-filter: blur(20px);
 
   @include withThemes {
     background-color: themed('cardBackgroundColor');
     color: themed('cardTextColor');
+    box-shadow: themed('cardBoxShadow');
   }
 
   @include lg {
@@ -48,7 +47,7 @@
       margin: 0 0 1rem;
 
       @include lg {
-        font-size: 2.8rem;
+        font-size: 2.4rem;
         margin: 0 0 1.2rem;
       }
     }
@@ -76,7 +75,7 @@
       }
 
       span {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
 
         @include lg {
           font-size: 1.6rem;
@@ -98,12 +97,12 @@
       }
 
       .label {
-        color: #b7b7b7;
+        color: #828282;
         font-size: 1.2rem;
         line-height: 1.5;
 
         @include lg {
-          font-size: 1.6rem;
+          font-size: 1.4rem;
         }
       }
 
@@ -112,7 +111,7 @@
         line-height: 1.5;
 
         @include lg {
-          font-size: 1.8rem;
+          font-size: 1.6rem;
         }
       }
     }
