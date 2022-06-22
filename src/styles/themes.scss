@@ -1,7 +1,8 @@
 $themes: (
   default: (
-    cardBackgroundColor: #0c8498,
-    cardTextColor: #fff,
+    cardBackgroundColor: #f9f9f9,
+    cardTextColor: #000,
+    cardBoxShadow: 1px 1px 3px 1px rgb(71, 71, 71),
     buttonBackgroundColor: #0c8498,
     buttonActiveBackgroundColor: #fff,
     buttonBorderColor: #0c8498,
@@ -11,6 +12,7 @@ $themes: (
   dark: (
     cardBackgroundColor: rgba(17, 17, 17, 0.6),
     cardTextColor: #fff,
+    cardBoxShadow: 0px 0px 3px 2px rgba(85, 85, 85, 1),
     buttonBackgroundColor: #111111,
     buttonActiveBackgroundColor: #b2d143,
     buttonBorderColor: #b2d143,
