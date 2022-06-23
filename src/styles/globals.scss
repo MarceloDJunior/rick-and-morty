@@ -39,6 +39,7 @@ button {
 
 .theme {
   overflow-x: hidden;
+  min-height: 100vh;
 
   &--default {
     background: #01a4bf;
