@@ -1,67 +1,88 @@
 @import '@/styles/dimensions.scss';
 @import '@/styles/breakpoints.scss';
 @import '@/styles/helpers.scss';
+@import '@/styles/themify.scss';
 
-.background {
-  background-image: url('#{$path-to-assets}/header-bg.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: height 0.1s linear;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1;
-}
+.container {
+  height: 38rem;
 
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  transition: height 0.1s linear, background-color 0.3s ease;
+  .background {
+    background-image: url('#{$path-to-assets}/header-bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    animation: expandMenu 0.2s ease forwards;
+  }
 
-  .content {
-    margin: 0 auto;
-    position: relative;
-    width: $container-width;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: inherit;
+    width: 100%;
+    z-index: 2;
+    transition: background-color 0.3s linear;
+    background-color: transparent;
+    animation: expandMenu 0.2s ease forwards;
 
-    .logo {
-      position: absolute;
-      margin: 3rem 0;
-      text-align: center;
-      animation: moveLogoToCenter 0.3s ease forwards;
+    .content {
+      margin: 0 auto;
+      position: relative;
+      width: $container-width;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
 
-      svg {
-        width: 50rem;
-        height: 15rem;
+      .logo {
+        position: absolute;
+        margin: 3rem 0;
+        text-align: center;
+        animation: moveLogoToCenter 0.3s ease forwards;
+
+        svg {
+          width: 50rem;
+          height: 15rem;
+        }
+      }
+
+      .search {
+        position: absolute;
+        animation: moveSearchToBottom 0.3s ease forwards;
+        width: 40rem;
+      }
+
+      .theme {
+        position: absolute;
+        top: 3rem;
+        right: 2.4rem;
       }
     }
+  }
 
-    .search {
-      position: absolute;
-      animation: moveSearchToBottom 0.3s ease forwards;
-      width: 40rem;
+  &.fixed {
+    .background {
+      animation: fixMenuOnTop 0.3s ease forwards;
     }
 
-    .theme {
-      position: absolute;
-      top: 3rem;
-      right: 2.4rem;
-    }
+    .header {
+      animation: fixMenuOnTop 0.3s ease forwards;
 
-    &.scrolling {
+      @include withThemes {
+        background-color: themed('headerBackgroundColor');
+      }
+
       .logo {
         margin: 0;
         top: auto;
-        animation: moveLogoToLeft 0.3s ease forwards;
+        animation: moveLogoToLeft 0.4s ease forwards;
 
         svg {
           width: 100%;
@@ -71,7 +92,7 @@
 
       .search {
         bottom: auto;
-        animation: moveSearchToTop 0.3s ease forwards;
+        animation: moveSearchToTop 0.4s ease forwards;
       }
     }
   }
@@ -89,7 +110,7 @@
     left: 2.4rem;
     transform: none;
     height: 5rem;
-    width: 10rem;
+    width: 12rem;
   }
 }
 
@@ -98,7 +119,7 @@
     left: 2.4rem;
     transform: none;
     height: 5rem;
-    width: 10rem;
+    width: 12rem;
   }
 
   100% {
@@ -111,7 +132,7 @@
 
 @keyframes moveSearchToTop {
   0% {
-    bottom: 4rem;
+    bottom: 2rem;
     transform: none;
   }
 
@@ -130,5 +151,27 @@
   100% {
     bottom: 4rem;
     transform: none;
+  }
+}
+
+@keyframes fixMenuOnTop {
+  0% {
+    height: 13rem;
+    position: absolute;
+  }
+  100% {
+    height: 10rem;
+    position: fixed;
+  }
+}
+
+@keyframes expandMenu {
+  0% {
+    height: 10rem;
+    position: fixed;
+  }
+  100% {
+    height: 38rem;
+    position: absolute;
   }
 }
