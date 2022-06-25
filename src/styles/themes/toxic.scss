@@ -1,7 +1,7 @@
 @import '@/styles/helpers.scss';
 
 $toxic: (
-  headerBackgroundImage: url('#{$path-to-assets}/header-bg-2.jpeg'),
+  headerBackgroundImage: url('#{$path-to-assets}/header-bg-toxic.jpeg'),
   headerBackgroundColor: linear-gradient(to right, #282828, #363636),
   cardBackgroundColor: #2a2a2a,
   cardTextColor: #fff,
