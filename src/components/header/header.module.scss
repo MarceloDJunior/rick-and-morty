@@ -84,7 +84,7 @@
       box-shadow: 0 0 0.4rem 0.2rem rgba(31, 31, 31, 0.4);
 
       @include withThemes {
-        background-color: themed('headerBackgroundColor');
+        background: themed('headerBackgroundColor');
       }
 
       .logo {

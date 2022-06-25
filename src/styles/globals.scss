@@ -44,14 +44,15 @@ button {
 
   &--default {
     background: #01a4bf;
-    background: -webkit-linear-gradient(right, #01a4bf, #00bead);
-    background: linear-gradient(to right, #01a4bf, #00bead);
+    background: -webkit-linear-gradient(right, #6fd0e0, #52bab1);
+    background: linear-gradient(to right, #6fd0e0, #52bab1);
     color: #000;
   }
 
   &--dark {
     background: url('#{$path-to-assets}/bg-dark.png');
     background-position: center;
+    background-attachment: fixed;
     color: #fff;
   }
 }
