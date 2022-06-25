@@ -4,6 +4,7 @@ import { Character } from '@/models/character';
 import { Header } from '@/components/header';
 import { LoadMoreAndScrollButton } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
+import { useAlertContext } from '@/contexts/alert-context';
 import { CharactersService, GetCharactersResponse } from '@/services/characters';
 import { NotFoundError } from '@/services/errors';
 
@@ -16,6 +17,7 @@ type AnimatedCharacter = Character & {
 };
 
 export const Characters = () => {
+  const { showAlert } = useAlertContext();
   const [characters, setCharacters] = useState<AnimatedCharacter[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,14 +46,18 @@ export const Characters = () => {
     [page]
   );
 
-  const handleGetCharactersError = useCallback((error: any) => {
-    setIsLoading(false);
-    setHasMore(false);
-    if (error instanceof NotFoundError) {
-      setCharacters([]);
-      return;
-    }
-  }, []);
+  const handleGetCharactersError = useCallback(
+    (error: any) => {
+      setIsLoading(false);
+      setHasMore(false);
+      if (error instanceof NotFoundError) {
+        setCharacters([]);
+        return;
+      }
+      showAlert();
+    },
+    [showAlert]
+  );
 
   const loadCharacters = useCallback(
     async (page = 1) => {

@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
+import { AlertProvider } from '@/contexts/alert-context';
 import { ThemeProvider } from '@/contexts/theme-context';
 
 import '@/styles/globals.scss';
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <ThemeProvider>
-        <Component {...pageProps} />
+        <AlertProvider>
+          <Component {...pageProps} />
+        </AlertProvider>
       </ThemeProvider>
     </>
   );
