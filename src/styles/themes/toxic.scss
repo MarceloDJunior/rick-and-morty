@@ -1,0 +1,16 @@
+@import '@/styles/helpers.scss';
+
+$toxic: (
+  headerBackgroundImage: url('#{$path-to-assets}/header-bg-2.jpeg'),
+  headerBackgroundColor: linear-gradient(to right, #282828, #363636),
+  cardBackgroundColor: #2a2a2a,
+  cardTextColor: #fff,
+  cardBoxShadow: 1px 1px 3px 1px rgb(71, 71, 71),
+  buttonBackgroundColor: #282828,
+  buttonActiveBackgroundColor: #454545,
+  buttonBorder: none,
+  buttonTextColor: #fff,
+  buttonActiveTextColor: #fff,
+  searchButtonBackgroundColor: #82ca0f,
+  searchButtonTextColor: #000,
+);

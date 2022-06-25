@@ -1,0 +1,16 @@
+@import '@/styles/helpers.scss';
+
+$dark: (
+  headerBackgroundImage: url('#{$path-to-assets}/header-bg.jpeg'),
+  headerBackgroundColor: #0e1a27,
+  cardBackgroundColor: rgba(27, 32, 42, 0.6),
+  cardTextColor: #fff,
+  cardBoxShadow: 0px 0px 3px 2px rgba(85, 85, 85, 1),
+  buttonBackgroundColor: #0e1a27,
+  buttonActiveBackgroundColor: #b2d143,
+  buttonBorder: 2px solid #b2d143,
+  buttonTextColor: #fff,
+  buttonActiveTextColor: #fff,
+  searchButtonBackgroundColor: #9ebd2f,
+  searchButtonTextColor: #fff,
+);
