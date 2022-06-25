@@ -1,0 +1,11 @@
+node_modules
+.vscode
+public
+next.config.js
+*.scss
+*.css
+*.svg
+*.jpg
+*.jpeg
+*.png
+*.md
