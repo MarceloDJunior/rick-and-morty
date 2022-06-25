@@ -1,5 +1,6 @@
 import { Character } from '@/models/character';
 import { api } from '@/services/api';
+import { NotFoundError, UnexpectedError } from '@/services/errors';
 
 export type GetCharactersResponse = {
   info: {
@@ -14,7 +15,14 @@ export type GetCharactersResponse = {
 export class CharactersService {
   public static async getCharacters(page = 1): Promise<GetCharactersResponse> {
     const response = await api.get(`/character/?page=${page}`);
-    return response.data as GetCharactersResponse;
+    switch (response.status) {
+      case 200:
+        return response.data as GetCharactersResponse;
+      case 404:
+        throw new NotFoundError();
+      default:
+        throw new UnexpectedError();
+    }
   }
 
   public static async getCharactersByName(name: string, page = 1): Promise<GetCharactersResponse> {
@@ -23,6 +31,13 @@ export class CharactersService {
       endpoint += `&name=${name}`;
     }
     const response = await api.get(endpoint);
-    return response.data as GetCharactersResponse;
+    switch (response.status) {
+      case 200:
+        return response.data as GetCharactersResponse;
+      case 404:
+        throw new NotFoundError();
+      default:
+        throw new UnexpectedError();
+    }
   }
 }

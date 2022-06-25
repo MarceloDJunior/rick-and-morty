@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Character } from '@/models/character';
 import { Header } from '@/components/header';
 import { LoadMoreAndScrollButton } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
 import { CharactersService, GetCharactersResponse } from '@/services/characters';
+import { NotFoundError } from '@/services/errors';
 
+import { CharacterNotFound } from './components/character-not-found';
 import { CharacterItem } from './components/character-item';
 import styles from './characters.module.scss';
 
@@ -22,6 +24,7 @@ export const Characters = () => {
 
   const handleGetCharactersSuccess = useCallback(
     (response: GetCharactersResponse) => {
+      // Time to show the button animation
       setTimeout(() => {
         const { info, results } = response;
         const charactersWithDelay = results.map((character, index) => ({
@@ -41,6 +44,15 @@ export const Characters = () => {
     [page]
   );
 
+  const handleGetCharactersError = useCallback((error: any) => {
+    setIsLoading(false);
+    setHasMore(false);
+    if (error instanceof NotFoundError) {
+      setCharacters([]);
+      return;
+    }
+  }, []);
+
   const loadCharacters = useCallback(
     async (page = 1) => {
       try {
@@ -51,10 +63,10 @@ export const Characters = () => {
         const response = await CharactersService.getCharacters(page);
         handleGetCharactersSuccess(response);
       } catch (error) {
-        setIsLoading(false);
+        handleGetCharactersError(error);
       }
     },
-    [handleGetCharactersSuccess, isLoading]
+    [handleGetCharactersError, handleGetCharactersSuccess, isLoading]
   );
 
   const searchCharacters = useCallback(
@@ -67,10 +79,10 @@ export const Characters = () => {
         const response = await CharactersService.getCharactersByName(value, page);
         handleGetCharactersSuccess(response);
       } catch (error) {
-        setIsLoading(false);
+        handleGetCharactersError(error);
       }
     },
-    [handleGetCharactersSuccess, isLoading]
+    [handleGetCharactersError, handleGetCharactersSuccess, isLoading]
   );
 
   const loadMoreCharacters = useCallback(async () => {
@@ -89,6 +101,10 @@ export const Characters = () => {
     [setSearchValue]
   );
 
+  const characterNotFound = useMemo(() => {
+    return !!(searchValue && characters.length === 0);
+  }, [characters.length, searchValue]);
+
   useEffect(() => {
     if (searchValue) {
       searchCharacters(searchValue);
@@ -102,18 +118,21 @@ export const Characters = () => {
     <>
       <Header onSearch={handleSearch} />
       <main className={styles.container}>
-        <div className={styles.characters}>
-          {characters.map(character => (
-            <AnimatedScale
-              key={character.id}
-              delay={character.delay}
-              duration={600}
-              className={styles['character-container']}
-            >
-              <CharacterItem character={character} className={styles.character} />
-            </AnimatedScale>
-          ))}
-        </div>
+        {characters.length > 0 && (
+          <div className={styles.characters}>
+            {characters.map(character => (
+              <AnimatedScale
+                key={character.id}
+                delay={character.delay}
+                duration={600}
+                className={styles['character-container']}
+              >
+                <CharacterItem character={character} className={styles.character} />
+              </AnimatedScale>
+            ))}
+          </div>
+        )}
+        {characterNotFound && <CharacterNotFound />}
         {hasMore && <LoadMoreAndScrollButton onClick={loadMoreCharacters} isLoading={isLoading} />}
       </main>
     </>
