@@ -55,4 +55,11 @@ button {
     background-attachment: fixed;
     color: #fff;
   }
+
+  &--toxic {
+    background: #96ea0d;
+    background: -webkit-linear-gradient(right, #96ea0d, #06bb00);
+    background: linear-gradient(to right, #96ea0d, #06bb00);
+    color: #000;
+  }
 }
