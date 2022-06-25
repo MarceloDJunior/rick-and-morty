@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames';
 
 import ArrowDownSvg from '@/assets/arrow-down.svg';
 import { CircleLoader } from '@/components/loaders/circle-loader';
@@ -66,15 +66,17 @@ export const LoadMoreAndScrollButton = ({ onClick, isLoading }: LoadMoreAndScrol
   }, [isLoading]);
 
   return (
-    <Button
-      className={classNames(styles.button, {
-        [styles['load-more']]: isAtBottom && !isLoading,
-        [styles.loading]: isLoading,
-        [styles.scroll]: !isAtBottom && !isLoading,
-      })}
-      onClick={onButtonClick}
-    >
-      {buttonContent}
-    </Button>
+    <div className={styles.container}>
+      <Button
+        className={classNames(styles.button, {
+          [styles['load-more']]: isAtBottom && !isLoading,
+          [styles.loading]: isLoading,
+          [styles.scroll]: !isAtBottom && !isLoading,
+        })}
+        onClick={onButtonClick}
+      >
+        {buttonContent}
+      </Button>
+    </div>
   );
 };

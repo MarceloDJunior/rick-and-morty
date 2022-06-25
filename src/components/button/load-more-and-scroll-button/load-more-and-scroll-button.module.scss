@@ -11,35 +11,38 @@
   transition: opacity 0.2s linear;
 }
 
-.button {
+.container {
   position: fixed;
   bottom: 2.4rem;
-  min-width: 5.8rem;
-  transition: min-width 0.1s linear, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-
-  &.scroll {
-    animation: scaleIn 0.3s ease forwards;
-    svg {
-      width: 90%;
-      height: 90%;
-      animation: bounce 1s linear infinite;
-    }
-  }
-
-  &.load-more {
-    min-width: 20rem;
-  }
-
-  &.loading {
+  .button {
     min-width: 5.8rem;
-    width: 5.8rem;
+    transition: min-width 0.1s linear, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 
-    @include withThemes {
-      background-color: themed('buttonBackgroundColor');
+    &.scroll {
+      min-width: 5.8rem;
+      animation: scaleIn 0.3s ease forwards;
+      svg {
+        width: 90%;
+        height: 90%;
+        animation: bounce 1s linear infinite;
+      }
     }
 
-    .loader {
-      opacity: 1;
+    &.load-more {
+      min-width: 20rem;
+    }
+
+    &.loading {
+      min-width: 5.8rem;
+      width: 5.8rem;
+
+      @include withThemes {
+        background-color: themed('buttonBackgroundColor');
+      }
+
+      .loader {
+        opacity: 1;
+      }
     }
   }
 }

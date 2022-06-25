@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { Character } from '@/models/character';
+import { Header } from '@/components/header';
+import { LoadMoreAndScrollButton } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
 import { CharactersService, GetCharactersResponse } from '@/services/characters';
 
-import { LoadMoreAndScrollButton } from './components/load-more-and-scroll-button';
 import { CharacterItem } from './components/character-item';
-import { Header } from './components/header';
 import styles from './characters.module.scss';
 
 type AnimatedCharacter = Character & {
