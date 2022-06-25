@@ -26,12 +26,11 @@
     height: 4.2rem;
     width: 4.2rem;
     padding: 1rem;
-    background-color: #000;
     border: none;
     border-radius: 50%;
 
     @include withThemes {
-      background-color: themed('searchButtonBackgroundColor');
+      background: themed('searchButtonBackgroundColor');
     }
 
     svg {
