@@ -14,12 +14,17 @@
   cursor: pointer;
   color: #fff;
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-radius: 4rem;
 
   @include withThemes {
     background-color: themed('buttonBackgroundColor');
     color: themed('buttonTextColor');
     border: 2px solid themed('buttonBorderColor');
+
+    svg {
+      fill: themed('buttonTextColor');
+    }
   }
 
   &:disabled {
@@ -32,7 +37,11 @@
     @include withThemes {
       background-color: themed('buttonActiveBackgroundColor');
       color: themed('buttonActiveTextColor');
-      border-color: themed('buttonActiveBorderColor');;
+      border-color: themed('buttonActiveBorderColor');
+
+      svg {
+        fill: themed('buttonActiveTextColor');
+      }
     }
   }
 }

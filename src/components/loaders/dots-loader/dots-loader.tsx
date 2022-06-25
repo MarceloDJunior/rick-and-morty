@@ -1,10 +1,10 @@
-import styles from './loader.module.scss';
+import styles from './dots-loader.module.scss';
 
-type LoaderProps = {
+type DotsLoaderProps = {
   color?: string;
 };
 
-export const Loader = ({ color }: LoaderProps) => {
+export const DotsLoader = ({ color }: DotsLoaderProps) => {
   return (
     <div className={styles['loader-container']} aria-label="Loading...">
       <div className={styles['loading-spinner']}>

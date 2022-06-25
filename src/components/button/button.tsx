@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { Loader } from '@/components/loader';
+import { DotsLoader } from '@/components/loaders/';
 
 import styles from './button.module.scss';
 
@@ -15,7 +15,7 @@ type ButtonProps = {
 export const Button = ({ children, className, loading, ...props }: ButtonProps) => {
   return (
     <button type="button" className={classNames(className, styles.button)} {...props}>
-      {loading ? <Loader /> : children}
+      {loading ? <DotsLoader /> : children}
     </button>
   );
 };
