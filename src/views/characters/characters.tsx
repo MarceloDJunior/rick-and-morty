@@ -1,13 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import classNames from 'classnames';
+import { useCallback, useEffect, useState } from 'react';
 
-import ArrowDownSvg from '@/assets/arrow-down.svg';
 import { Character } from '@/models/character';
-import { Button } from '@/components/button';
-import { CircleLoader } from '@/components/loaders/circle-loader';
 import { AnimatedScale } from '@/components/animated-scale';
 import { CharactersService, GetCharactersResponse } from '@/services/characters';
 
+import { LoadMoreAndScrollButton } from './components/load-more-and-scroll-button';
 import { CharacterItem } from './components/character-item';
 import { Header } from './components/header';
 import styles from './characters.module.scss';
@@ -16,20 +13,12 @@ type AnimatedCharacter = Character & {
   delay: number;
 };
 
-const scrollToBottom = () => {
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth',
-  });
-};
-
 export const Characters = () => {
   const [characters, setCharacters] = useState<AnimatedCharacter[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  const [hasMore, setHasMore] = useState(true);
-  const [isAtBottom, setIsAtBottom] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
   const handleGetCharactersSuccess = useCallback(
     (response: GetCharactersResponse) => {
@@ -47,7 +36,6 @@ export const Characters = () => {
         }
         setPage(page + 1);
         setIsLoading(false);
-        setIsAtBottom(false);
       }, 400);
     },
     [page]
@@ -101,17 +89,6 @@ export const Characters = () => {
     [setSearchValue]
   );
 
-  const onButtonClick = useCallback(() => {
-    if (isLoading) {
-      return;
-    }
-    if (isAtBottom) {
-      loadMoreCharacters();
-    } else {
-      scrollToBottom();
-    }
-  }, [isAtBottom, isLoading, loadMoreCharacters]);
-
   useEffect(() => {
     if (searchValue) {
       searchCharacters(searchValue);
@@ -120,32 +97,6 @@ export const Characters = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight;
-      const bottomThreshold = document.body.scrollHeight - 50;
-
-      setIsAtBottom(scrollPosition >= bottomThreshold);
-    };
-
-    onScroll();
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [isLoading]);
-
-  const buttonContent = useMemo(() => {
-    if (isLoading) {
-      return <CircleLoader size={38} />;
-    }
-    if (isAtBottom) {
-      return 'Load more';
-    }
-    return <ArrowDownSvg />;
-  }, [isAtBottom, isLoading]);
 
   return (
     <>
@@ -163,18 +114,7 @@ export const Characters = () => {
             </AnimatedScale>
           ))}
         </div>
-        {hasMore && (
-          <Button
-            className={classNames(styles.button, {
-              [styles['load-more']]: isAtBottom && !isLoading,
-              [styles.loading]: isLoading,
-              [styles.scroll]: !isAtBottom,
-            })}
-            onClick={onButtonClick}
-          >
-            {buttonContent}
-          </Button>
-        )}
+        {hasMore && <LoadMoreAndScrollButton onClick={loadMoreCharacters} isLoading={isLoading} />}
       </main>
     </>
   );

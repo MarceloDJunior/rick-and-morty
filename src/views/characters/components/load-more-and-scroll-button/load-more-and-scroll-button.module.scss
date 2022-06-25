@@ -1,0 +1,78 @@
+@import '@/styles/helpers.scss';
+@import '@/styles/themify.scss';
+
+.loader {
+  animation: scaleIn 0.1s linear forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+}
+
+.button {
+  position: fixed;
+  bottom: 2.4rem;
+  min-width: 5.8rem;
+  transition: min-width 0.1s linear, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+  &.scroll {
+    animation: scaleIn 0.3s ease forwards;
+    svg {
+      width: 90%;
+      height: 90%;
+      animation: bounce 1s linear infinite;
+    }
+  }
+
+  &.load-more {
+    min-width: 20rem;
+  }
+
+  &.loading {
+    min-width: 5.8rem;
+    width: 5.8rem;
+
+    @include withThemes {
+      background-color: themed('buttonBackgroundColor');
+    }
+
+    .loader {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(2px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+}
