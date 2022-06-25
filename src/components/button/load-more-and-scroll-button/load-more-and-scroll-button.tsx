@@ -24,12 +24,12 @@ export const LoadMoreAndScrollButton = ({ onClick, isLoading }: LoadMoreAndScrol
 
   const buttonContent = useMemo(() => {
     if (isLoading) {
-      return <CircleLoader size={38} />;
+      return <CircleLoader size={38} aria-label="Loading..." />;
     }
     if (isAtBottom) {
       return 'Load more';
     }
-    return <ArrowDownSvg />;
+    return <ArrowDownSvg aria-label="Go to bottom" />;
   }, [isAtBottom, isLoading]);
 
   const onButtonClick = useCallback(() => {
