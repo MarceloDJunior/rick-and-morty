@@ -1,5 +1,11 @@
 @import '@/styles/helpers.scss';
+@import '@/styles/breakpoints.scss';
 @import '@/styles/themify.scss';
+
+$width-load-more-button: 16rem;
+$width-load-more-button-l: 20rem;
+$width-scroll-button: 5rem;
+$width-scroll-button-l: 5.8rem;
 
 .loader {
   animation: scaleIn 0.1s linear forwards;
@@ -15,12 +21,21 @@
   position: fixed;
   bottom: 2.4rem;
   .button {
-    min-width: 5.8rem;
+    min-width: $width-scroll-button;
     transition: min-width 0.1s linear, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 
+    @include sm {
+      min-width: $width-scroll-button-l;
+    }
+
     &.scroll {
-      min-width: 5.8rem;
+      min-width: $width-scroll-button;
       animation: scaleIn 0.3s ease forwards;
+
+      @include sm {
+        min-width: $width-scroll-button-l;
+      }
+
       svg {
         width: 90%;
         height: 90%;
@@ -29,12 +44,21 @@
     }
 
     &.load-more {
-      min-width: 20rem;
+      min-width: $width-load-more-button;
+
+      @include sm {
+        min-width: $width-load-more-button-l;
+      }
     }
 
     &.loading {
-      min-width: 5.8rem;
-      width: 5.8rem;
+      min-width: $width-scroll-button;
+      width: $width-scroll-button;
+
+      @include sm {
+        min-width: $width-scroll-button-l;
+        width: $width-scroll-button-l;
+      }
 
       @include withThemes {
         background-color: themed('buttonBackgroundColor');

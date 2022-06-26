@@ -45,6 +45,8 @@
       font-size: 2rem;
       line-height: 1.2;
       margin: 0 0 1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       @include lg {
         font-size: 2.4rem;
