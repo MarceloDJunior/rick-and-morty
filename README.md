@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Rick And Morty App
 
-## Getting Started
+A Next.js app that consumes the [Rick and Morty API](https://rickandmortyapi.com) and list characters.
 
-First, run the development server:
+https://rick-and-morty-amber-one.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Table of contents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Table of contents](#table-of-contents)
+- [About the project](#about-the-project)
+- [Video](#video)
+- [Installation](#installation)
+- [Technologies used](#technologies-used)
+- [Status](#status)
+- [License](#license)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## About the project
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+This project was created for study purposes. The main goal is to show the technologies I like to use, how I organize my projects and show my frontend skills. All the animations and transitions were made by me with css (SASS) transitions and keyframes, without the need of any external library.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+For state management I chose to use ContextAPI as there's only a few data that needed to be global.
 
-## Learn More
+The app consumes the [Rick and Morty API](https://rickandmortyapi.com), created by [Axel Fuhrmann](https://github.com/afuh).
 
-To learn more about Next.js, take a look at the following resources:
+## Video
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+https://user-images.githubusercontent.com/17832776/175796976-2c8edad7-0300-4ff6-8590-758818eb7560.mp4
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Installation
 
-## Deploy on Vercel
+1. Clone down this repository. You will need `node` and `yarn` installed globally on your machine.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   `git clone https://github.com/MarceloDJunior/rick-and-morty.git`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Install dependencies:
+
+   `yarn`
+
+3. Start Dev Server:
+
+   `yarn dev`
+
+4. Visit the app in `localhost:3000`
+
+## Technologies used
+
+- [React.js](https://reactjs.org)
+- [Next.js](https://nextjs.org)
+- [TypeScript](https://www.typescriptlang.org)
+- [Sass](https://sass-lang.com)
+- [Axios](https://sass-lang.com)
+- [ESLint](https://eslint.org)
+- [Stylelint](https://stylelint.io)
+- [Commitlint](https://commitlint.js.org)
+- [Prettier](https://prettier.io)
+
+## Status
+
+The project is still in development. The next steps are to create a detailed character screen and a page of episodes.
+
+## License
+
+[MIT](https://github.com/MarceloDJunior/rick-and-morty/blob/main/LICENSE) © Marcelo Dornelles Junior
