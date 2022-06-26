@@ -48,7 +48,7 @@ https://user-images.githubusercontent.com/17832776/175796976-2c8edad7-0300-4ff6-
 - [Next.js](https://nextjs.org)
 - [TypeScript](https://www.typescriptlang.org)
 - [Sass](https://sass-lang.com)
-- [Axios](https://sass-lang.com)
+- [Axios](https://axios-http.com)
 - [ESLint](https://eslint.org)
 - [Stylelint](https://stylelint.io)
 - [Commitlint](https://commitlint.js.org)
