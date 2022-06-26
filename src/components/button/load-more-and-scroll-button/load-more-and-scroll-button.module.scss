@@ -20,6 +20,11 @@ $width-scroll-button-l: 5.8rem;
 .container {
   position: fixed;
   bottom: 2.4rem;
+
+  @include sm {
+    bottom: 3rem;
+  }
+
   .button {
     min-width: $width-scroll-button;
     transition: min-width 0.1s linear, background-color 0.2s ease-in-out, color 0.2s ease-in-out;

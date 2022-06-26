@@ -14,14 +14,14 @@
   }
 
   .characters {
-    padding: 0 0 6.8rem;
+    padding: 0 0 6.4rem;
     width: 100%;
     display: grid;
     grid-gap: 1.6rem;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
     @include sm {
-      padding: 4rem 0 6.8rem;
+      padding: 4rem 0 7.4rem;
       grid-gap: 2.4rem;
     }
 
