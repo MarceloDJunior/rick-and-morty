@@ -6,6 +6,6 @@ export enum Theme {
 
 export const ThemePrimaryColor = {
   [Theme.DEFAULT]: '#0c8498',
-  [Theme.DARK]: '#000',
+  [Theme.DARK]: '#0e1a27',
   [Theme.TOXIC]: '#96ea0d',
 };
