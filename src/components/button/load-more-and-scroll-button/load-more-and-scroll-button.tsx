@@ -4,19 +4,13 @@ import classNames from 'classnames';
 import ArrowDownSvg from '@/assets/arrow-down.svg';
 import { CircleLoader } from '@/components/loaders/circle-loader';
 import { Button } from '@/components/button';
+import { ScrollHelper } from '@/helpers/scroll-helper';
 
 import styles from './load-more-and-scroll-button.module.scss';
 
 type LoadMoreAndScrollButtonProps = {
   onClick: () => void;
   isLoading?: boolean;
-};
-
-const scrollToBottom = () => {
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth',
-  });
 };
 
 export const LoadMoreAndScrollButton = ({ onClick, isLoading }: LoadMoreAndScrollButtonProps) => {
@@ -39,7 +33,7 @@ export const LoadMoreAndScrollButton = ({ onClick, isLoading }: LoadMoreAndScrol
     if (isAtBottom) {
       onClick();
     } else {
-      scrollToBottom();
+      ScrollHelper.scrollToBottom();
     }
   }, [isAtBottom, isLoading, onClick]);
 

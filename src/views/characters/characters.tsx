@@ -5,6 +5,7 @@ import { Header } from '@/components/header';
 import { LoadMoreAndScrollButton } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
 import { useAlertContext } from '@/contexts/alert-context';
+import { ScrollHelper } from '@/helpers/scroll-helper';
 import { CharactersService, GetCharactersResponse } from '@/services/characters';
 import { NotFoundError } from '@/services/errors';
 
@@ -15,13 +16,6 @@ import styles from './characters.module.scss';
 
 type AnimatedCharacter = Character & {
   delay: number;
-};
-
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  });
 };
 
 export const Characters = () => {
@@ -111,7 +105,7 @@ export const Characters = () => {
     async (value: string) => {
       setPage(1);
       setSearchValue(value);
-      scrollToTop();
+      ScrollHelper.scrollToTop();
     },
     [setSearchValue]
   );
