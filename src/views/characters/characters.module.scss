@@ -9,6 +9,10 @@
   width: $container-width;
   padding: $container-padding;
 
+  @include sm {
+    padding: $container-padding-l;
+  }
+
   .characters {
     padding: 0 0 6.8rem;
     width: 100%;
