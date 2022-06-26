@@ -18,8 +18,6 @@ export class CharactersService {
     switch (response.status) {
       case 200:
         return response.data as GetCharactersResponse;
-      case 404:
-        throw new NotFoundError();
       default:
         throw new UnexpectedError();
     }

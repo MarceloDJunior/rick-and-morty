@@ -50,9 +50,9 @@ export const Characters = () => {
 
   const handleGetCharactersError = useCallback(
     (error: any) => {
-      setIsLoading(false);
-      setHasMore(false);
       if (error instanceof NotFoundError) {
+        setIsLoading(false);
+        setHasMore(false);
         setCharacters([]);
         return;
       }
