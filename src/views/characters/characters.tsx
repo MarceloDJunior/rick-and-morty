@@ -9,11 +9,19 @@ import { CharactersService, GetCharactersResponse } from '@/services/characters'
 import { NotFoundError } from '@/services/errors';
 
 import { CharacterNotFound } from './components/character-not-found';
+import { CharacterItemSkeleton } from './components/character-item-skeleton';
 import { CharacterItem } from './components/character-item';
 import styles from './characters.module.scss';
 
 type AnimatedCharacter = Character & {
   delay: number;
+};
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 };
 
 export const Characters = () => {
@@ -103,13 +111,10 @@ export const Characters = () => {
     async (value: string) => {
       setPage(1);
       setSearchValue(value);
+      scrollToTop();
     },
     [setSearchValue]
   );
-
-  const characterNotFound = useMemo(() => {
-    return !!(searchValue && characters.length === 0);
-  }, [characters.length, searchValue]);
 
   useEffect(() => {
     if (searchValue) {
@@ -120,25 +125,51 @@ export const Characters = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
+  const characterNotFound = useMemo(() => {
+    return !!(searchValue && characters.length === 0);
+  }, [characters.length, searchValue]);
+
+  const renderCharacters = useMemo(() => {
+    if (!hasMore && isLoading) {
+      return (
+        <div className={styles.characters}>
+          {Array.from({ length: 12 }).map((_, index) => (
+            <CharacterItemSkeleton key={index} />
+          ))}
+        </div>
+      );
+    }
+    if (characterNotFound) {
+      return (
+        <AnimatedScale delay={200} duration={400}>
+          <CharacterNotFound />
+        </AnimatedScale>
+      );
+    }
+    if (characters.length > 0) {
+      return (
+        <div className={styles.characters}>
+          {characters.map(character => (
+            <AnimatedScale
+              key={character.id}
+              delay={character.delay}
+              duration={600}
+              className={styles['character-container']}
+            >
+              <CharacterItem character={character} className={styles.character} />
+            </AnimatedScale>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  }, [characterNotFound, characters, hasMore, isLoading]);
+
   return (
     <>
       <Header onSearch={handleSearch} />
       <main className={styles.container}>
-        {characters.length > 0 && (
-          <div className={styles.characters}>
-            {characters.map(character => (
-              <AnimatedScale
-                key={character.id}
-                delay={character.delay}
-                duration={600}
-                className={styles['character-container']}
-              >
-                <CharacterItem character={character} className={styles.character} />
-              </AnimatedScale>
-            ))}
-          </div>
-        )}
-        {characterNotFound && <CharacterNotFound />}
+        {renderCharacters}
         {hasMore && <LoadMoreAndScrollButton onClick={loadMoreCharacters} isLoading={isLoading} />}
       </main>
     </>
