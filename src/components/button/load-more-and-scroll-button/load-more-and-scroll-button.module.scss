@@ -59,6 +59,7 @@ $width-scroll-button-l: 5.8rem;
     &.loading {
       min-width: $width-scroll-button;
       width: $width-scroll-button;
+      cursor: default;
 
       @include sm {
         min-width: $width-scroll-button-l;
