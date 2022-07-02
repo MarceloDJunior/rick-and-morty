@@ -18,7 +18,7 @@ export const LoadMoreAndScrollButton = ({ onClick, isLoading }: LoadMoreAndScrol
 
   const buttonContent = useMemo(() => {
     if (isLoading) {
-      return <CircleLoader size={38} aria-label="Loading..." />;
+      return <CircleLoader size={36} aria-label="Loading..." />;
     }
     if (isAtBottom) {
       return 'Load more';
