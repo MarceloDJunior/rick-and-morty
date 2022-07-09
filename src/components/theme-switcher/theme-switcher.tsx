@@ -34,12 +34,12 @@ export const ThemeSwitcher = () => {
       </button>
       {isOpen && (
         <div className={styles['theme-popup']} ref={popupRef} onBlur={close}>
-          <h3>Select a theme</h3>
+          <h4 className={styles.title}>Select a theme</h4>
           {Object.values(Theme).map(t => (
             <button
               type="button"
               className={classNames(styles.item, { [styles.active]: t === theme })}
-              key="color"
+              key={t}
               onClick={() => updateTheme(t)}
             >
               <div className={styles.theme}>{t}</div>
