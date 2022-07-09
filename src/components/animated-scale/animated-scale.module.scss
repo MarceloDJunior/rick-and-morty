@@ -1,13 +1,20 @@
 .animated {
   opacity: 0;
-  animation-name: scale;
   animation-duration: 300ms;
   animation-delay: 0ms;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
+
+  &--in {
+    animation-name: scaleIn;
+  }
+
+  &--out {
+    animation-name: scaleOut;
+  }
 }
 
-@keyframes scale {
+@keyframes scaleIn {
   0% {
     transform: scale(0);
   }
@@ -17,5 +24,16 @@
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes scaleOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
   }
 }

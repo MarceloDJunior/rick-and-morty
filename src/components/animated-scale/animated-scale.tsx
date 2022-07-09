@@ -7,6 +7,7 @@ type AnimatedScaleProps = {
   duration?: number;
   delay?: number;
   className?: string;
+  type?: 'in' | 'out';
 };
 
 export const AnimatedScale = ({
@@ -14,10 +15,11 @@ export const AnimatedScale = ({
   children,
   delay = 0,
   duration = 300,
+  type = 'in',
 }: AnimatedScaleProps) => {
   return (
     <div
-      className={classNames(className, styles.animated)}
+      className={classNames(className, styles.animated, styles[`animated--${type}`])}
       style={{
         animationDelay: `${delay}ms`,
         animationDuration: `${duration}ms`,
