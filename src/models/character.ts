@@ -10,6 +10,5 @@ export type Character = {
   origin: Location;
   species: string;
   status: string;
-  type: string;
   url: string;
 };
