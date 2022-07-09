@@ -1,6 +1,5 @@
 .container {
   position: relative;
-  width: 20rem;
 }
 
 .switcher {
@@ -31,6 +30,7 @@
 }
 
 .theme-popup {
+  width: 20rem;
   position: absolute;
   right: 0;
   top: 0;
@@ -39,7 +39,12 @@
   color: #000;
   border-radius: 2rem;
   display: block;
-  padding: 0.8rem 2.4rem;
+  padding: 0.6rem 2.4rem 0.8rem;
+
+  .title {
+    font-size: 1.6rem;
+    text-align: center;
+  }
 
   .item {
     display: flex;
