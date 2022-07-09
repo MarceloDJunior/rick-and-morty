@@ -1,0 +1,69 @@
+@import '@/styles/breakpoints.scss';
+@import '@/styles/themify.scss';
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2;
+  cursor: pointer;
+  overflow: auto;
+  flex-wrap: wrap;
+  padding-top: 4rem;
+
+  @include sm {
+    padding: 2.4rem;
+    align-items: center;
+  }
+
+  .container {
+    width: min(80rem, 100%);
+    height: auto;
+
+    .modal {
+      cursor: default;
+      border-radius: 0.4rem;
+
+      @include withThemes {
+        background-color: themed('primaryColor');
+        color: themed('textColor');
+      }
+
+      .header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2.4rem;
+
+        .title {
+          font-size: 2.4rem;
+          font-weight: normal;
+          margin: 0;
+        }
+
+        button {
+          background-color: rgba(0, 0, 0, 0.7);
+          border-radius: 50%;
+          width: 3.4rem;
+          height: 3.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2rem;
+          padding-bottom: 0.2rem;
+
+          @include withThemes {
+            color: themed('textColor');
+          }
+        }
+      }
+    }
+  }
+}

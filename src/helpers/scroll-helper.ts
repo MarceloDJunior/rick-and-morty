@@ -14,4 +14,12 @@ export class ScrollHelper {
       behavior: 'smooth',
     });
   }
+
+  public static disableScroll(): void {
+    document.body.style.overflow = 'hidden';
+  }
+
+  public static enableScroll(): void {
+    document.body.style.overflow = 'auto';
+  }
 }

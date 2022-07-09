@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
 import { AlertProvider } from '@/contexts/alert-context';
+import { ModalProvider } from '@/contexts/modal-context';
 import { ThemeProvider } from '@/contexts/theme-context';
 
 import '@/styles/globals.scss';
@@ -17,7 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <ThemeProvider>
         <AlertProvider>
-          <Component {...pageProps} />
+          <ModalProvider>
+            <Component {...pageProps} />
+          </ModalProvider>
         </AlertProvider>
       </ThemeProvider>
     </>

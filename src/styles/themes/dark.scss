@@ -1,6 +1,8 @@
 @import '@/styles/helpers.scss';
 
 $dark: (
+  primaryColor: #0e1a27,
+  textColor: #fff,
   headerBackgroundImage: url('#{$path-to-assets}/header-bg-dark.jpeg'),
   headerBackgroundColor: #0e1a27,
   cardBackgroundColor: rgba(27, 32, 42, 0.6),
