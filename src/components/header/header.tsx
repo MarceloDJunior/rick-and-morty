@@ -27,9 +27,9 @@ export const Header = ({ onSearch }: HeaderProps) => {
   }, []);
 
   return (
-    <div className={classNames(styles.container, { [styles.fixed]: isFixed })}>
+    <header className={classNames(styles.container, { [styles.fixed]: isFixed })}>
       <div className={styles.background}></div>
-      <header className={styles.header}>
+      <div className={styles.header}>
         <div className={styles.content}>
           <div className={styles.logo}>
             <Logo />
@@ -41,7 +41,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
             <ThemeSwitcher />
           </div>
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 };
