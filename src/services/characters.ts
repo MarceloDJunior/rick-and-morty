@@ -13,6 +13,8 @@ export type GetCharactersResponse = {
 };
 
 export class CharactersService {
+  private constructor() {}
+
   public static async getCharacters(page = 1): Promise<GetCharactersResponse> {
     const response = await api.get(`/character/?page=${page}`);
     switch (response.status) {
@@ -32,6 +34,18 @@ export class CharactersService {
     switch (response.status) {
       case 200:
         return response.data as GetCharactersResponse;
+      case 404:
+        throw new NotFoundError();
+      default:
+        throw new UnexpectedError();
+    }
+  }
+
+  public static async getCharacterById(id: number): Promise<Character> {
+    const response = await api.get(`/character/${id}`);
+    switch (response.status) {
+      case 200:
+        return response.data as Character;
       case 404:
         throw new NotFoundError();
       default:

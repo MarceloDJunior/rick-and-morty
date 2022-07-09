@@ -8,11 +8,21 @@ import styles from './character-item.module.scss';
 type CharacterItemProps = {
   className?: string;
   character: Character;
+  onClick?: (character: Character) => void;
 };
 
-const CharacterItemComponent = ({ character, className }: CharacterItemProps) => {
+const CharacterItemComponent = ({ character, className, onClick }: CharacterItemProps) => {
+  const handleClick = () => {
+    onClick?.(character);
+  };
+
   return (
-    <div className={classNames(styles.character, className)}>
+    <div
+      className={classNames(styles.character, className)}
+      role="button"
+      tabIndex={0}
+      onClick={handleClick}
+    >
       <img src={character.image} alt={character.name} className={styles.image} />
       <div className={styles.description}>
         <h3 className={styles.name}>{character.name}</h3>

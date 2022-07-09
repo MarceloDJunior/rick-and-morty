@@ -8,6 +8,7 @@
   border-radius: 0.8rem;
   overflow: hidden;
   max-width: 35rem;
+  cursor: pointer;
 
   @include withThemes {
     background-color: themed('cardBackgroundColor');

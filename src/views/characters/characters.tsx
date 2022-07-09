@@ -1,13 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 
-import { Character } from '@/models/character';
 import { Header } from '@/components/header';
 import { LoadMoreAndScrollButton } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
 import { useAlertContext } from '@/contexts/alert-context';
+import { useModalContext } from '@/contexts/modal-context';
 import { ScrollHelper } from '@/helpers/scroll-helper';
+import { Character } from '@/models/character';
 import { CharactersService, GetCharactersResponse } from '@/services/characters';
 import { NotFoundError } from '@/services/errors';
+import { CharacterDetails } from '@/views/character-details';
 
 import { CharacterNotFound } from './components/character-not-found';
 import { CharacterItemSkeleton } from './components/character-item-skeleton';
@@ -19,7 +22,9 @@ type AnimatedCharacter = Character & {
 };
 
 export const Characters = () => {
+  const router = useRouter();
   const { showAlert } = useAlertContext();
+  const { showModal } = useModalContext();
   const [characters, setCharacters] = useState<AnimatedCharacter[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,11 +98,11 @@ export const Characters = () => {
     [handleGetCharactersError, handleGetCharactersSuccess, isLoading]
   );
 
-  const loadMoreCharacters = useCallback(async () => {
+  const loadMoreCharacters = useCallback(() => {
     if (searchValue) {
-      await searchCharacters(searchValue, page);
+      searchCharacters(searchValue, page);
     } else {
-      await loadCharacters(page);
+      loadCharacters(page);
     }
   }, [loadCharacters, page, searchCharacters, searchValue]);
 
@@ -110,6 +115,40 @@ export const Characters = () => {
     [setSearchValue]
   );
 
+  const addCharacterIdToUrl = useCallback(
+    (character: Character) => {
+      router.replace(`?characterId=${character.id}`, undefined, { shallow: true });
+    },
+    [router]
+  );
+
+  const removeCharacterIdFromUrl = useCallback(() => {
+    router.replace('/', undefined, { shallow: true });
+  }, [router]);
+
+  const showCharacterDetails = useCallback(
+    (character: Character) => {
+      showModal({
+        title: 'Character Details',
+        content: <CharacterDetails character={character} />,
+        onClose: removeCharacterIdFromUrl,
+      });
+    },
+    [removeCharacterIdFromUrl, showModal]
+  );
+
+  const getCharacterAndShowDetails = useCallback(
+    async (characterId: number) => {
+      try {
+        const character: Character = await CharactersService.getCharacterById(characterId);
+        showCharacterDetails(character);
+      } catch (error) {
+        showAlert();
+      }
+    },
+    [showAlert, showCharacterDetails]
+  );
+
   useEffect(() => {
     if (searchValue) {
       searchCharacters(searchValue);
@@ -118,6 +157,24 @@ export const Characters = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
+
+  useEffect(() => {
+    if (router.isReady && router.query.characterId) {
+      const characterId = Number(router.query.characterId);
+      const character: Character | undefined = characters.find(c => c.id === characterId);
+      if (character) {
+        showCharacterDetails(character);
+      } else {
+        getCharacterAndShowDetails(characterId);
+      }
+    }
+  }, [
+    characters,
+    router.isReady,
+    router.query.characterId,
+    showCharacterDetails,
+    getCharacterAndShowDetails,
+  ]);
 
   const characterNotFound = useMemo(() => {
     return !!(searchValue && characters.length === 0);
@@ -150,14 +207,18 @@ export const Characters = () => {
               duration={600}
               className={styles['character-container']}
             >
-              <CharacterItem character={character} className={styles.character} />
+              <CharacterItem
+                character={character}
+                className={styles.character}
+                onClick={addCharacterIdToUrl}
+              />
             </AnimatedScale>
           ))}
         </div>
       );
     }
     return null;
-  }, [characterNotFound, characters, hasMore, isLoading]);
+  }, [characterNotFound, characters, addCharacterIdToUrl, hasMore, isLoading]);
 
   return (
     <>
