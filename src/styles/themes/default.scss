@@ -1,8 +1,6 @@
 @import '@/styles/helpers.scss';
 
 $default: (
-  primaryColor: #1aa4b1,
-  textColor: #fff,
   headerBackgroundImage: url('#{$path-to-assets}/header-bg.jpeg'),
   headerBackgroundColor: linear-gradient(to right, #10759a, #1aa4b1),
   cardBackgroundColor: #f9f9f9,
@@ -18,4 +16,7 @@ $default: (
   errorBackgroundColor: #fff,
   errorTextColor: #000,
   errorBorderColor: #cd4242,
+  modalHeaderBackgroundColor: #1aa4b1,
+  modalHeaderTextColor: #fff,
+  modalLoaderColor: #1aa4b1,
 );

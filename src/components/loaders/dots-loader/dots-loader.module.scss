@@ -1,3 +1,5 @@
+@import '@/styles/themify.scss';
+
 .loader-container {
   margin-top: 4px;
 
@@ -23,8 +25,11 @@
         height: 20px;
         border-radius: 50%;
         transform: translate(40px, 40px) scale(1);
-        background: #fff;
         animation: spinner 1.3513513513513513s infinite cubic-bezier(0, 0.5, 0.5, 1);
+
+        @include withThemes {
+          background-color: themed('modalLoaderColor');
+        }
       }
 
       div:nth-child(1) {

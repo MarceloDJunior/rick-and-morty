@@ -1,8 +1,6 @@
 @import '@/styles/helpers.scss';
 
 $dark: (
-  primaryColor: #0e1a27,
-  textColor: #fff,
   headerBackgroundImage: url('#{$path-to-assets}/header-bg-dark.jpeg'),
   headerBackgroundColor: #0e1a27,
   cardBackgroundColor: rgba(27, 32, 42, 0.6),
@@ -18,4 +16,7 @@ $dark: (
   errorBackgroundColor: #0e1a27,
   errorTextColor: #fff,
   errorBorderColor: #0e1a27,
+  modalHeaderBackgroundColor: #0e1a27,
+  modalHeaderTextColor: #ffffff,
+  modalLoaderColor: #ffffff,
 );

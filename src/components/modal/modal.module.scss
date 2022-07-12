@@ -31,8 +31,8 @@
       border-radius: 0.4rem;
 
       @include withThemes {
-        background-color: themed('primaryColor');
-        color: themed('textColor');
+        background-color: themed('modalHeaderBackgroundColor');
+        color: themed('modalHeaderTextColor');
       }
 
       .header {
@@ -60,7 +60,7 @@
           padding-bottom: 0.2rem;
 
           @include withThemes {
-            color: themed('textColor');
+            color: themed('modalHeaderTextColor');
           }
         }
       }

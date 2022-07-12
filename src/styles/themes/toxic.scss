@@ -1,8 +1,6 @@
 @import '@/styles/helpers.scss';
 
 $toxic: (
-  primaryColor: #82ca0f,
-  textColor: #fff,
   headerBackgroundImage: url('#{$path-to-assets}/header-bg-toxic.jpeg'),
   headerBackgroundColor: linear-gradient(to right, #282828, #363636),
   cardBackgroundColor: #2a2a2a,
@@ -18,4 +16,7 @@ $toxic: (
   errorBackgroundColor: #2a2a2a,
   errorTextColor: #fff,
   errorBorderColor: #82ca0f,
+  modalHeaderBackgroundColor: #6daa0a,
+  modalHeaderTextColor: #fff,
+  modalLoaderColor: #82ca0f,
 );
