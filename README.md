@@ -54,10 +54,6 @@ https://user-images.githubusercontent.com/17832776/175796976-2c8edad7-0300-4ff6-
 - [Commitlint](https://commitlint.js.org)
 - [Prettier](https://prettier.io)
 
-## Status
-
-The project is still in development. The next steps are to create a detailed character screen and a page of episodes.
-
 ## License
 
 [MIT](https://github.com/MarceloDJunior/rick-and-morty/blob/main/LICENSE) © Marcelo Dornelles Junior
