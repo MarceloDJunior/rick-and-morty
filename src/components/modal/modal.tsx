@@ -17,13 +17,17 @@ const MODAL_ANIMATION_DURATION = 300;
 export const Modal = ({ title, children, onClose }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const [animationType, setAnimationType] = useState<'in' | 'out'>('in');
+  const [hasFinishedAnimation, setHasFinishedAnimation] = useState(false);
 
   const onRequestClose = useCallback(() => {
+    if (!hasFinishedAnimation) {
+      return;
+    }
     setAnimationType('out');
     setTimeout(() => {
       onClose();
     }, MODAL_ANIMATION_DURATION);
-  }, [onClose]);
+  }, [hasFinishedAnimation, onClose]);
 
   useOnClickOutside(modalRef, onRequestClose);
 
@@ -31,6 +35,16 @@ export const Modal = ({ title, children, onClose }: ModalProps) => {
     ScrollHelper.disableScroll();
     return () => {
       ScrollHelper.enableScroll();
+    };
+  }, []);
+
+  useEffect(() => {
+    // Give time to finish the animation before closing the modal
+    const timer = setTimeout(() => {
+      setHasFinishedAnimation(true);
+    }, MODAL_ANIMATION_DURATION);
+    return () => {
+      clearTimeout(timer);
     };
   }, []);
 
