@@ -11,7 +11,6 @@ https://rick-and-morty-amber-one.vercel.app
 - [Video](#video)
 - [Installation](#installation)
 - [Technologies used](#technologies-used)
-- [Status](#status)
 - [License](#license)
 
 ## About the project
