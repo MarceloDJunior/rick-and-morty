@@ -16,6 +16,7 @@
   overflow: auto;
   flex-wrap: wrap;
   padding-top: 4rem;
+  backdrop-filter: blur(2px);
 
   @include sm {
     padding: 2.4rem;
@@ -25,6 +26,11 @@
   .container {
     width: min(80rem, 100%);
     height: auto;
+    transform-origin: bottom;
+
+    @include sm {
+      transform-origin: center;
+    }
 
     .modal {
       cursor: default;
