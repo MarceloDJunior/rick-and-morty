@@ -5,6 +5,7 @@ import ArrowDownSvg from '@/assets/arrow-down.svg';
 import { CircleLoader } from '@/components/loaders/circle-loader';
 import { Button } from '@/components/button';
 import { ScrollHelper } from '@/helpers/scroll-helper';
+import { throttle } from '@/helpers/common';
 
 import styles from './load-more-and-scroll-button.module.scss';
 
@@ -45,11 +46,13 @@ export const LoadMoreAndScrollButton = ({ onClick, isLoading }: LoadMoreAndScrol
       setIsAtBottom(scrollPosition >= bottomThreshold);
     };
 
+    const throttledScroll = throttle(onScroll);
+
     onScroll();
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', throttledScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', throttledScroll);
     };
   }, [isLoading]);
 

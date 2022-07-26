@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Logo from '@/assets/logo.svg';
 import { SearchInput } from '@/components/search-input';
 import { ThemeSwitcher } from '@/components/theme-switcher';
+import { debounce, throttle } from '@/helpers/common';
 
 import styles from './header.module.scss';
 
@@ -20,11 +21,15 @@ export const Header = ({ onSearch }: HeaderProps) => {
       setIsFixed(window.scrollY > SCROLL_BREAKPOINT);
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    const throttledScroll = throttle(onScroll);
+
+    window.addEventListener('scroll', throttledScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', throttledScroll);
     };
   }, []);
+
+  const debounceSearch = debounce(onSearch);
 
   return (
     <header className={classNames(styles.container, { [styles.fixed]: isFixed })}>
@@ -35,7 +40,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
             <Logo />
           </div>
           <div className={styles.search}>
-            <SearchInput onSearch={onSearch} />
+            <SearchInput onSearch={debounceSearch} />
           </div>
           <div className={styles.theme}>
             <ThemeSwitcher />
