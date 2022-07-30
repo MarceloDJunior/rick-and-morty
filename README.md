@@ -23,7 +23,8 @@ The app consumes the [Rick and Morty API](https://rickandmortyapi.com), created 
 
 ## Video
 
-https://user-images.githubusercontent.com/17832776/175796976-2c8edad7-0300-4ff6-8590-758818eb7560.mp4
+https://user-images.githubusercontent.com/17832776/182002813-a4ada3b7-c273-47bf-ac2f-26831afda18d.mp4
+
 
 ## Installation
 
@@ -47,7 +48,7 @@ https://user-images.githubusercontent.com/17832776/175796976-2c8edad7-0300-4ff6-
 - [Next.js](https://nextjs.org)
 - [TypeScript](https://www.typescriptlang.org)
 - [Sass](https://sass-lang.com)
-- [Axios](https://axios-http.com)
+- [Apollo](https://www.apollographql.com)
 - [ESLint](https://eslint.org)
 - [Stylelint](https://stylelint.io)
 - [Commitlint](https://commitlint.js.org)
