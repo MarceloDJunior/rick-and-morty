@@ -15,7 +15,7 @@ https://rick-and-morty-amber-one.vercel.app
 
 ## About the project
 
-This project was created for study purposes. The main goal is to show the technologies I like to use, how I organize my projects and show my frontend skills. All the animations and transitions were made by me with css (SASS) transitions and keyframes, without the need of any external library.
+This project was created for study purposes. The main goal is to show the technologies I like to use, how I organize my projects and show my frontend skills. All the animations and transitions were made by me with CSS (Sass) transitions and keyframes, without the need of any external library.
 
 For state management I chose to use ContextAPI as there's only a few data that needed to be global.
 
