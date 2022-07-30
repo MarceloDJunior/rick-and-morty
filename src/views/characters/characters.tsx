@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useLazyQuery } from '@apollo/client';
 
 import { Header } from '@/components/header';
 import { LoadMoreAndScrollButton } from '@/components/button';
 import { AnimatedScale } from '@/components/animated-scale';
 import { useAlertContext } from '@/contexts/alert-context';
 import { useModalContext } from '@/contexts/modal-context';
+import { GET_CHARACTERS_QUERY, GET_CHARACTER_QUERY } from '@/graphql/queries';
+import { GetCharactersResponse, GetCharacterResponse } from '@/graphql/types';
 import { ScrollHelper } from '@/helpers/scroll-helper';
 import { Character } from '@/models/character';
-import { CharactersService, GetCharactersResponse } from '@/services/characters';
-import { NotFoundError } from '@/services/errors';
 import { CharacterDetails } from '@/views/character-details';
 
 import { CharacterNotFound } from './components/character-not-found';
@@ -25,80 +26,72 @@ export const Characters = () => {
   const router = useRouter();
   const { showAlert } = useAlertContext();
   const { showModal } = useModalContext();
+
   const [characters, setCharacters] = useState<AnimatedCharacter[]>([]);
   const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [hasMore, setHasMore] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleGetCharactersSuccess = useCallback(
-    (response: GetCharactersResponse) => {
-      // Time to show the button animation
-      setTimeout(() => {
-        const { info, results } = response;
-        const charactersWithDelay = results.map((character, index) => ({
-          ...character,
-          delay: index * 100,
-        }));
-        setHasMore(!!info.next);
-        if (page === 1) {
-          setCharacters(charactersWithDelay);
-        } else {
-          setCharacters(prevCharacters => [...prevCharacters, ...charactersWithDelay]);
-        }
-        setPage(page + 1);
-        setIsLoading(false);
-      }, 400);
-    },
-    [page]
-  );
+  const [getCharacters, { loading: isLoadingCharacters }] = useLazyQuery(GET_CHARACTERS_QUERY, {
+    onCompleted: (data: GetCharactersResponse) => handleGetCharactersSuccess(data),
+    onError: () => showAlert(),
+  });
 
-  const handleGetCharactersError = useCallback(
-    (error: any) => {
-      if (error instanceof NotFoundError) {
-        setIsLoading(false);
-        setHasMore(false);
-        setCharacters([]);
-        return;
+  const [getCharacter] = useLazyQuery(GET_CHARACTER_QUERY, {
+    onCompleted: ({ character }: GetCharacterResponse) => showCharacterDetails(character),
+    onError: () => showAlert(),
+  });
+
+  const handleCharacterNotFound = useCallback(() => {
+    setHasMore(false);
+    setCharacters([]);
+    return;
+  }, []);
+
+  const handleGetCharactersSuccess = (response: GetCharactersResponse) => {
+    // Time to show the button animation
+    setTimeout(() => {
+      const { info, results } = response.characters;
+
+      if (results.length === 0 && hasSearched) {
+        handleCharacterNotFound();
       }
-      showAlert();
-    },
-    [showAlert]
-  );
+
+      setHasSearched(false);
+
+      const charactersWithDelay = results.map((character, index) => ({
+        ...character,
+        delay: index * 100,
+      }));
+      setHasMore(!!info.next);
+      if (page === 1) {
+        setCharacters(charactersWithDelay);
+      } else {
+        setCharacters(prevCharacters => [...prevCharacters, ...charactersWithDelay]);
+      }
+      setPage(page + 1);
+      setIsLoading(false);
+    }, 300);
+  };
 
   const loadCharacters = useCallback(
     async (page = 1) => {
-      try {
-        if (isLoading) {
-          return;
-        }
-        setIsLoading(true);
-        const response = await CharactersService.getCharacters(page);
-        handleGetCharactersSuccess(response);
-      } catch (error) {
-        handleGetCharactersError(error);
-      }
+      getCharacters({ variables: { page, search: searchValue } });
     },
-    [handleGetCharactersError, handleGetCharactersSuccess, isLoading]
+    [getCharacters, searchValue]
   );
 
   const searchCharacters = useCallback(
     async (value: string, page = 1) => {
-      try {
-        if (isLoading) {
-          return;
-        }
-        setIsLoading(true);
-        const response = await CharactersService.getCharactersByName(value, page);
-        handleGetCharactersSuccess(response);
-      } catch (error) {
-        handleGetCharactersError(error);
-      }
+      getCharacters({ variables: { page, search: value } });
     },
-    [handleGetCharactersError, handleGetCharactersSuccess, isLoading]
+    [getCharacters]
   );
 
   const loadMoreCharacters = useCallback(() => {
+    setHasSearched(false);
     if (searchValue) {
       searchCharacters(searchValue, page);
     } else {
@@ -138,19 +131,15 @@ export const Characters = () => {
   );
 
   const getCharacterAndShowDetails = useCallback(
-    async (characterId: number) => {
-      try {
-        const character: Character = await CharactersService.getCharacterById(characterId);
-        showCharacterDetails(character);
-      } catch (error) {
-        showAlert();
-      }
+    (characterId: number) => {
+      getCharacter({ variables: { id: characterId } });
     },
-    [showAlert, showCharacterDetails]
+    [getCharacter]
   );
 
   useEffect(() => {
     if (searchValue) {
+      setHasSearched(true);
       searchCharacters(searchValue);
     } else {
       loadCharacters();
@@ -161,7 +150,7 @@ export const Characters = () => {
   useEffect(() => {
     if (router.isReady && router.query.characterId) {
       const characterId = Number(router.query.characterId);
-      const character: Character | undefined = characters.find(c => c.id === characterId);
+      const character: Character | undefined = characters.find(c => Number(c.id) === characterId);
       if (character) {
         showCharacterDetails(character);
       } else {
@@ -175,6 +164,12 @@ export const Characters = () => {
     showCharacterDetails,
     getCharacterAndShowDetails,
   ]);
+
+  useEffect(() => {
+    if (isLoadingCharacters) {
+      setIsLoading(true);
+    }
+  }, [isLoadingCharacters]);
 
   const characterNotFound = useMemo(() => {
     return !!(searchValue && characters.length === 0);
@@ -218,7 +213,7 @@ export const Characters = () => {
       );
     }
     return null;
-  }, [characterNotFound, characters, addCharacterIdToUrl, hasMore, isLoading]);
+  }, [hasMore, isLoading, characterNotFound, characters, addCharacterIdToUrl]);
 
   return (
     <>

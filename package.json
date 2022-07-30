@@ -12,8 +12,9 @@
     "check-types": "bash -c tsc --noEmit"
   },
   "dependencies": {
-    "axios": "^0.27.2",
+    "@apollo/client": "^3.6.9",
     "classnames": "^2.3.1",
+    "graphql": "^16.5.0",
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0"

@@ -1,6 +1,5 @@
 import { Character } from '@/models/character';
 
-import { Episodes } from './components/episodes';
 import styles from './character-details.module.scss';
 
 type CharacterDetailsProps = {
@@ -36,7 +35,19 @@ export const CharacterDetails = ({ character }: CharacterDetailsProps) => {
           </div>
         </div>
       </div>
-      <Episodes urls={character.episode} />
+      <div className={styles.episodes}>
+        <h2 className={styles.subtitle}>Episodes</h2>
+        <ul>
+          {character.episodes.map(episode => (
+            <li key={episode.id}>
+              <div>
+                {episode.episode} - {episode.name}
+              </div>
+              <div className={styles.date}>{episode.air_date}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
