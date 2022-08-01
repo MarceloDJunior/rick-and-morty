@@ -34,7 +34,7 @@ $width-scroll-button-l: 5.8rem;
     }
 
     &.scroll {
-      min-width: $width-scroll-button;
+      width: $width-scroll-button;
       animation: scaleIn 0.3s ease forwards;
 
       @include sm {
