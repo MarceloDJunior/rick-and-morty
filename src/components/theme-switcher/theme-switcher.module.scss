@@ -1,3 +1,5 @@
+@import '@/styles/helpers.scss';
+
 .container {
   position: absolute;
   right: 0;
@@ -5,9 +7,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 2rem;
-  backdrop-filter: blur(10px);
+  background-color: rgba(239, 239, 239, 0.9);
+
+  /* if backdrop support: very transparent and blurred */
+  @include supports-backdrop-filter {
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+  }
 
   &.open {
     animation: expand 0.2s ease-in-out;
@@ -59,6 +66,7 @@
       margin-bottom: 1.6rem;
       width: 100%;
       background-color: transparent;
+      color: #000;
 
       &.active {
         font-weight: bold;

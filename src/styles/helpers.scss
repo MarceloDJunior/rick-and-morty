@@ -1,1 +1,7 @@
 $path-to-assets: '~assets';
+
+@mixin supports-backdrop-filter {
+  @supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
+    @content;
+  }
+}
